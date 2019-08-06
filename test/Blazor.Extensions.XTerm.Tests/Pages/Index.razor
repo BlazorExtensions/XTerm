@@ -1,0 +1,50 @@
+﻿@page "/"
+
+<td>
+    <tr>
+        <XTerm TerminalId="12345" Options="_options" OnKey="@OnKeyPress" OnLineFeed="@OnLineFeed" @ref="_terminal" HelloMessage="----- Hello, Blazor Terminal!!! -----"/>
+    </tr>
+    <tr>
+        <input type="button" @onclick="Click" value="Write line!" />
+    </tr>
+</td>
+
+@code{
+    private XTerm _terminal;
+    private TerminalOptions _options = new TerminalOptions{
+        CursorBlink = true,
+        CursorStyle = CursorStyle.underline
+    };
+
+    private Task OnKeyPress(UIKeyboardEventArgs keyPress)
+    {
+        Console.WriteLine(keyPress.Key);
+        var printable = !keyPress.AltKey && !keyPress.CtrlKey && !keyPress.MetaKey;
+
+        if(keyPress.Key == "Enter")
+        {
+            return this._terminal.WriteLine();
+        }
+        else if(keyPress.Key == "Backspace")
+        {
+            return this._terminal.Write("\b \b");
+        }
+
+        if(printable)
+        {
+            return this._terminal.Write(keyPress.Key);
+        }
+        return Task.CompletedTask;
+    }
+
+    private Task OnLineFeed()
+    {
+        Console.WriteLine("---");
+        return this._terminal.ScrollLines();
+    }
+
+    private async Task Click(UIMouseEventArgs args)
+    {
+        await this._terminal.WriteLine($"[{DateTime.UtcNow}] Hey you!");
+    }
+}

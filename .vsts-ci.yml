@@ -1,0 +1,34 @@
+queue: 'Hosted VS2017'
+
+variables:
+  buildConfiguration: 'Release'
+
+steps:
+  - task: DotNetCoreInstaller@0
+    inputs:
+      packageType: 'sdk'
+      version: 3.0.100-preview7-012821
+
+  - task: Npm@1
+    displayName: 'Install NPM dependencies'
+    inputs:
+      command: 'install'
+      workingDir: src/Blazor.Extensions.XTerm.JS
+
+  - task: DotNetCoreCLI@2
+    displayName: 'Build'
+    inputs:
+      command: 'build'
+      projects: '**/*.csproj'
+      arguments: '--configuration $(buildConfiguration)'
+
+  - task: DotNetCoreCLI@2
+    displayName: 'Pack Nuget package'
+    inputs:
+      command: pack
+      packagesToPack: 'src/Blazor.Extensions.XTerm/*.csproj'
+      configuration: '$(buildConfiguration)'
+      versioningScheme: byPrereleaseNumber
+      majorVersion: '0'
+      minorVersion: '1'
+      patchVersion: '0'
