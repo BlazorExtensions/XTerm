@@ -27,8 +27,8 @@
     <Exec Command="npm install" />
   </Target>
 
-  <Target Name="RunWebpack" AfterTargets="ResolveReferences" Inputs="@(WebpackInputs)" Outputs="dist\blazor.extensions.xterm.js" DependsOnTargets="EnsureNpmRestored">
-    <RemoveDir Directories="dist" />
+  <Target Name="RunWebpack" AfterTargets="ResolveReferences" Inputs="@(WebpackInputs)" Outputs="wwwroot\blazor.extensions.xterm.js" DependsOnTargets="EnsureNpmRestored">
+    <RemoveDir Directories="wwwroot" />
     <Exec Command="npm run build" />
   </Target>
 

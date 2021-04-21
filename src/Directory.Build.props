@@ -11,7 +11,7 @@
 
   <!-- Configure source link: https://github.com/ctaggart/SourceLink -->
   <PropertyGroup>
-    <SourceLinkCreate>true</SourceLinkCreate>
+    <SourceLinkCreate>false</SourceLinkCreate>
     <SourceLinkOriginUrl>https://github.com/BlazorExtensions/XTerm</SourceLinkOriginUrl>
   </PropertyGroup>
 </Project>
