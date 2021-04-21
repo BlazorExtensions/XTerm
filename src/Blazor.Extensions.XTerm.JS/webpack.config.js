@@ -21,8 +21,7 @@ module.exports = {
   },
   plugins: [
     new CopyPlugin([
-      { from: path.join(__dirname, './node_modules/xterm/dist/xterm.css'), to: path.join(__dirname, "/wwwroot/xterm.css") },
-      { from: 'other', to: 'public' },
+      { from: path.join(__dirname, './node_modules/xterm/css/xterm.css'), to: path.join(__dirname, "/wwwroot/xterm.css") }
     ])
   ],
   output: {
