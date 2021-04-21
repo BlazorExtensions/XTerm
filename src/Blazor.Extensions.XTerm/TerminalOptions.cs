@@ -1,4 +1,4 @@
-﻿using System.Text.Json.Serialization;
+using System.Text.Json.Serialization;
 
 namespace Blazor.Extensions.XTerm
 {
@@ -49,7 +49,7 @@ namespace Blazor.Extensions.XTerm
         public int? LetterSpacing { get; set; }
 
         [JsonPropertyName("lineHeight")]
-        public int? LineHeight { get; set; }
+        public int LineHeight { get; set; } = 1;
 
         [JsonPropertyName("macOptionIsMeta")]
         public bool? MacOptionIsMeta { get; set; }
@@ -74,7 +74,7 @@ namespace Blazor.Extensions.XTerm
         public int? Scrollback { get; set; }
 
         [JsonPropertyName("tabStopWidth")]
-        public int? TabStopWidth { get; set; }
+        public int TabStopWidth { get; set; } = 1;
 
         [JsonPropertyName("windowsMode")]
         public bool? WindowsMode { get; set; }

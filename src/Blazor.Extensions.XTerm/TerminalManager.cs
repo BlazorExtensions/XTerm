@@ -1,42 +1,42 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
 using Microsoft.JSInterop;
 
 namespace Blazor.Extensions.XTerm
 {
     public class TerminalManager
     {
-        private static Dictionary<string, XTermComponent> _terminals = new Dictionary<string, XTermComponent>();
+        private static readonly Dictionary<string, XTerm> Terminals = new Dictionary<string, XTerm>();
 
-        public static void RegisterTerminal(string id, XTermComponent terminal)
+        public static void RegisterTerminal(string id, XTerm terminal)
         {
-            _terminals[id] = terminal;
+            Terminals[id] = terminal;
         }
 
         public static void UnregisterTerminal(string id)
         {
-            if (_terminals.ContainsKey(id))
+            if (Terminals.ContainsKey(id))
             {
-                _terminals.Remove(id);
+                Terminals.Remove(id);
             }
         }
 
         [JSInvokable]
-        public static async Task OnKey(string id, UIKeyboardEventArgs @event)
+        public static async Task OnKey(string id, KeyboardEventArgs @event)
         {
-            if (_terminals.ContainsKey(id))
+            if (Terminals.ContainsKey(id))
             {
-                await _terminals[id]?.OnKey.InvokeAsync(@event);
+                await Terminals[id]?.OnKey.InvokeAsync(@event);
             }
         }
 
         [JSInvokable]
         public static async Task OnLineFeed(string id)
         {
-            if (_terminals.ContainsKey(id))
+            if (Terminals.ContainsKey(id))
             {
-                await _terminals[id]?.OnLineFeed.InvokeAsync(string.Empty);
+                await Terminals[id]?.OnLineFeed.InvokeAsync(string.Empty);
             }
         }
     }
