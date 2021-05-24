@@ -33,6 +33,7 @@ export class TerminalManager {
         await DotNet.invokeMethodAsync("Blazor.Extensions.XTerm", "OnLineFeed", ref.id);
       });
       terminal.open(ref);
+      fitAddon.fit();
       terminal.focus();
 
       this._terminals.set(ref.id, terminal);
